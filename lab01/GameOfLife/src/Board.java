@@ -39,7 +39,7 @@ public class Board extends JComponent implements MouseInputListener, ComponentLi
     public void iteration() {
         for (int x = 0; x < points.length; ++x)
             for (int y = 0; y < points[x].length; ++y)
-                points[x][y].calculate(this.rule);
+                points[x][y].calculateNewState(this.rule);
 
         for (int x = 0; x < points.length; ++x)
             for (int y = 0; y < points[x].length; ++y)
@@ -97,7 +97,6 @@ public class Board extends JComponent implements MouseInputListener, ComponentLi
 
         for (int x = 0; x < points.length; ++x) {
             for (int y = 0; y < points[x].length; ++y) {
-                //TODO: initialize the neighborhood of points[x][y] cell
                 generateNeighborhood(vectors, x, y);
             }
         }

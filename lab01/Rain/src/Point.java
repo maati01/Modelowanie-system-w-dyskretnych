@@ -26,7 +26,6 @@ public class Point {
 	}
 
 	public void calculateNewState() {
-		//TODO: insert logic which updates according to currentState and
 		//number of active neighbors
 		if(currentState > 0){
 			nextState = currentState - 1;
@@ -43,14 +42,6 @@ public class Point {
 	
 	public void addNeighbor(Point nei) {
 		neighbors.add(nei);
-	}
-	
-	//TODO: write method counting all active neighbors of THIS point
-
-	public int countAliveNeighbors(){
-		return neighbors.stream()
-				.mapToInt(a -> a.currentState)
-				.sum();
 	}
 
 	public boolean drop(){
