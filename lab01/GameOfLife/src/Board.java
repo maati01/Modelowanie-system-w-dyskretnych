@@ -4,6 +4,9 @@ import java.awt.Insets;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 import javax.swing.JComponent;
 import javax.swing.event.MouseInputListener;
@@ -17,6 +20,8 @@ public class Board extends JComponent implements MouseInputListener, ComponentLi
     private static final long serialVersionUID = 1L;
     private Point[][] points;
     private int size = 14;
+    private String rule = "default";
+
 
     public Board(int length, int height) {
         addMouseListener(this);
@@ -26,11 +31,15 @@ public class Board extends JComponent implements MouseInputListener, ComponentLi
         setOpaque(true);
     }
 
+    public void setRule(String rule){
+        this.rule = rule;
+    }
+
     // single iteration
     public void iteration() {
         for (int x = 0; x < points.length; ++x)
             for (int y = 0; y < points[x].length; ++y)
-                points[x][y].calculateNewState();
+                points[x][y].calculate(this.rule);
 
         for (int x = 0; x < points.length; ++x)
             for (int y = 0; y < points[x].length; ++y)

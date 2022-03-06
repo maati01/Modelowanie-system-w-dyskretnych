@@ -11,6 +11,7 @@ import javax.swing.JSlider;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JComboBox;
 
 /**
  * Class containing GUI: board + buttons
@@ -23,6 +24,7 @@ public class GUI extends JPanel implements ActionListener, ChangeListener {
 	private JButton clear;
 	private JSlider pred;
 	private JFrame frame;
+	private JComboBox listRules;
 	private int iterNum = 0;
 	private final int maxDelay = 500;
 	private final int initDelay = 100;
@@ -40,8 +42,16 @@ public class GUI extends JPanel implements ActionListener, ChangeListener {
 	public void initialize(Container container) {
 		container.setLayout(new BorderLayout());
 		container.setSize(new Dimension(1024, 768));
+		String[] rules = {"default", "cities", "coral", "day and night", "stains"};
 
 		JPanel buttonPanel = new JPanel();
+
+		listRules = new JComboBox<>(rules);
+		listRules.setActionCommand("rules");
+		listRules.setToolTipText("Set rule");
+		listRules.setSelectedIndex(0);
+		listRules.addActionListener(this);
+
 
 		start = new JButton("Start");
 		start.setActionCommand("Start");
@@ -63,6 +73,7 @@ public class GUI extends JPanel implements ActionListener, ChangeListener {
 		buttonPanel.add(start);
 		buttonPanel.add(clear);
 		buttonPanel.add(pred);
+		buttonPanel.add(listRules);
 
 		board = new Board(1024, 768 - buttonPanel.getHeight());
 		container.add(board, BorderLayout.CENTER);
@@ -98,8 +109,10 @@ public class GUI extends JPanel implements ActionListener, ChangeListener {
 				start.setEnabled(true);
 				board.clear();
 				frame.setTitle("Cellular Automata Toolbox");
-			} 
-
+			}
+			else if (command.equals("rules") && listRules.getSelectedItem() != null ) {
+				board.setRule(listRules.getSelectedItem().toString());
+			}
 		}
 	}
 
