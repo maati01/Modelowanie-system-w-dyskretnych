@@ -9,9 +9,14 @@ public class Point {
 	public float wVel;
 	public float sVel;
 	public float pressure;
+	public static Integer []types ={0,1,2};
+	int type;
+	public static int sinInput;
+
 
 
 	public Point() {
+		type = 0;
 		clear();
 	}
 
@@ -24,15 +29,22 @@ public class Point {
 	}
 
 	public void updateVelocity() {
-		nVel = nVel - (nNeighbor.pressure - pressure);
-		eVel = eVel - (eNeighbor.pressure - pressure);
-		sVel = sVel - (sNeighbor.pressure - pressure);
-		wVel = wVel - (wNeighbor.pressure - pressure);
+		if(type == 0)
+			nVel = nVel - (nNeighbor.pressure - pressure);
+			eVel = eVel - (eNeighbor.pressure - pressure);
+			sVel = sVel - (sNeighbor.pressure - pressure);
+			wVel = wVel - (wNeighbor.pressure - pressure);
 	}
 
 	public void updatePresure() {
 		float c_square = 0.5F;
-		pressure = pressure - c_square*(nVel + eVel + sVel + wVel);
+		if(type == 0)
+			pressure = pressure - c_square*(nVel + eVel + sVel + wVel);
+
+		if(type == 2) {
+			double radians = Math.toRadians(sinInput);
+			pressure = (float) (Math.sin(radians));
+		}
 
 	}
 
