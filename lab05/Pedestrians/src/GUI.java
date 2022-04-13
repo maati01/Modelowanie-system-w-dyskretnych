@@ -20,6 +20,7 @@ public class GUI extends JPanel implements ActionListener, ChangeListener {
 	private JButton start;
 	private JButton clear;
 	private JComboBox<Integer> drawType;
+	private JComboBox<String> neighborhoodType;
 	private JSlider pred;
 	private JFrame frame;
 	private int iterNum = 0;
@@ -57,9 +58,14 @@ public class GUI extends JPanel implements ActionListener, ChangeListener {
 		drawType.addActionListener(this);
 		drawType.setActionCommand("drawType");
 
+		neighborhoodType = new JComboBox<String>(new String[]{"Moore", "Von Neumann"});
+		neighborhoodType.addActionListener(this);
+		neighborhoodType.setActionCommand("neighborhood");
+
 		buttonPanel.add(start);
 		buttonPanel.add(clear);
 		buttonPanel.add(drawType);
+		buttonPanel.add(neighborhoodType);
 		buttonPanel.add(pred);
 
 		board = new Board(1024, 768 - buttonPanel.getHeight());
@@ -95,6 +101,12 @@ public class GUI extends JPanel implements ActionListener, ChangeListener {
 			else if (command.equals("drawType")){
 				int newType = (Integer)drawType.getSelectedItem();
 				board.editType = newType;
+			}else if(command.equals("neighborhood")){
+				if(neighborhoodType.getSelectedItem() == "Moore"){
+					board.moore = true;
+				}else{
+					board.moore = false;
+				}
 			}
 
 		}
